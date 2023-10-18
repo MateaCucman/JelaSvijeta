@@ -17,3 +17,21 @@ class MealCollection extends ResourceCollection
         return parent::toArray($request);
     }
 }
+
+public function withResponse($request, $response)
+    {
+        $data = $response->getData(true);
+        $currentPage = $data['meta']['current_page'];
+        $totalItems = $data['meta']['total'];
+        $itemsPerPage = $data['meta']['per_page'];
+        $totalPages = $data['meta']['last_page'];
+        
+        $prev = $data['links']['prev'];
+        $next = $data['links']['next'];
+        $self = $request->fullUrl();
+
+        $data['meta'] = compact('currentPage', 'totalItems', 'itemsPerPage', 'totalPages');
+        $data['links'] = compact('prev', 'next', 'self');
+
+        $response->setData($data);
+    }
