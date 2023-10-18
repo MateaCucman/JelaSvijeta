@@ -16,9 +16,8 @@ class MealCollection extends ResourceCollection
     {
         return parent::toArray($request);
     }
-}
 
-public function withResponse($request, $response)
+    public function withResponse($request, $response)
     {
         $data = $response->getData(true);
         $currentPage = $data['meta']['current_page'];
@@ -35,3 +34,4 @@ public function withResponse($request, $response)
 
         $response->setData($data);
     }
+}
