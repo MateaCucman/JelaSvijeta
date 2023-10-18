@@ -22,7 +22,7 @@ class MealController extends Controller
         $filter = new MealFilter;
         $filter = $filter->filter($request);
         $meals = $filter->paginate($request->per_page);
-        return new MealCollection($meals);
+        return new MealCollection($meals->appends($request->query()));
     }
 
     /**
